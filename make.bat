@@ -1,5 +1,6 @@
 @ECHO OFF
 FOR /f "tokens=2*" %%A IN ('REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\AutoHotkey" /v InstallDir') DO ( SET "AHKPath=%%B")
+FOR %%C IN (*.ahk) DO ( SET "AHKScript=%%~nC")
 IF EXIST icon.ico SET "ICON=/ICON icon.ico"
 
 :menuLOOP
@@ -27,5 +28,5 @@ GOTO:menu_Q
 :menu_
 
 :menu_Q   Quit
-	START "compile" "%AHKPath%\Compiler\Ahk2exe.exe" /IN CMDLine_Viewer.ahk /OUT "CMDLine_Viewer.exe" %ICON% /BIN "%ARCH%"
+	START "compile" "%AHKPath%\Compiler\Ahk2exe.exe" /IN %AHKScript%.ahk /OUT %AHKScript%.exe %ICON% /BIN "%ARCH%"
 EXIT
